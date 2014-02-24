@@ -19,9 +19,10 @@ public class Main {
         lista.insertarInicio("1");
         lista.insertarInicio("2");
         lista.insertarInicio("3");
-        lista.insertarInicio("4");
+        lista.insertarInicio("5");
         lista.mostrarLista();
         lista.invertirLista().mostrarLista();
-        System.out.println(lista.buscar("2"));
+        lista.insertaDespuesDeX("4", "3");
+        lista.mostrarLista();
     }
 }

@@ -59,18 +59,48 @@ public class ListaLigada<T> {
         return bandera;
     }
 
-    public void insetaAntesDeX(T nuevo, T referencia) {
+    public void insertaAntesDeX(T nuevo, T referencia) {
         Nodo<T> q = p;
-        Nodo<T> s;
+        Nodo<T> s=new Nodo<>();
+        Nodo<T> t = new Nodo<>(nuevo);
         boolean bandera = false;
 
-        while (q != null && !bandera) {
-            if (q.getValor().equals(referencia)) {
-                bandera = true;
+        while ((q.getValor().equals(referencia)) && (!bandera)) {
+            if (q.getLiga() != null) {
+                s = q;
+                q = q.getLiga();
+            }else{
+                bandera=true;
             }
-            s = q;
-            q = q.getLiga();
         }
-
+        if(!bandera){
+            if (p == q) {
+                t.setLiga(p);
+                p = t;
+            } else {
+                s.setLiga(t);
+                t.setLiga(q);
+            }
+        } else {
+            System.out.println("No lo encontro");
+        }
+    }
+    public void insertaDespuesDeX(T nuevo, T referencia ){
+        boolean bandera = false;
+        Nodo<T> t = new Nodo<>(nuevo);
+        Nodo<T> s;
+        Nodo<T> q = p;
+        while ((q != null) && (!bandera)){
+            if (q.getValor().equals(referencia)){
+                bandera = true;
+            }else{
+                q = q.getLiga();
+            }
+        }            
+        if (bandera){
+            s = q.getLiga();
+            q.setLiga(t);
+            t.setLiga(s);
+        }        
     }
 }

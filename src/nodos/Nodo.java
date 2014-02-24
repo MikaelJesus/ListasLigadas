@@ -13,6 +13,12 @@ public class Nodo<T> {
 
     private T valor;
     private Nodo liga;
+    public Nodo(T valor){
+        this.valor=valor;
+    }
+    public Nodo(){
+        
+    }
 
     /**
      * @return the valor
