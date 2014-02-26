@@ -61,7 +61,7 @@ public class ListaLigada<T> {
 
     public void insertaAntesDeX(T nuevo, T referencia) {
         Nodo<T> q = p;
-        Nodo<T> s=new Nodo<>();
+        Nodo<T> s = new Nodo<>();
         Nodo<T> t = new Nodo<>(nuevo);
         boolean bandera = false;
 
@@ -69,11 +69,11 @@ public class ListaLigada<T> {
             if (q.getLiga() != null) {
                 s = q;
                 q = q.getLiga();
-            }else{
-                bandera=true;
+            } else {
+                bandera = true;
             }
         }
-        if(!bandera){
+        if (!bandera) {
             if (p == q) {
                 t.setLiga(p);
                 p = t;
@@ -85,22 +85,79 @@ public class ListaLigada<T> {
             System.out.println("No lo encontro");
         }
     }
-    public void insertaDespuesDeX(T nuevo, T referencia ){
+
+    public void insertaDespuesDeX(T nuevo, T referencia) {
         boolean bandera = false;
         Nodo<T> t = new Nodo<>(nuevo);
         Nodo<T> s;
         Nodo<T> q = p;
-        while ((q != null) && (!bandera)){
-            if (q.getValor().equals(referencia)){
+        while ((q != null) && (!bandera)) {
+            if (q.getValor().equals(referencia)) {
                 bandera = true;
-            }else{
+            } else {
                 q = q.getLiga();
             }
-        }            
-        if (bandera){
+        }
+        if (bandera) {
             s = q.getLiga();
             q.setLiga(t);
             t.setLiga(s);
-        }        
+        }
+    }
+
+    public void dividir(Integer num) {
+        int cont = 0;
+        Nodo<T> q = p;
+        while (q != null) {
+            q = q.getLiga();
+            cont++;
+        }
+        q = p;
+        int primeraParte = cont - cont / 2;
+        cont = 0;
+        if (num == 1) {
+            while (cont != primeraParte) {
+                System.out.println(q.getValor());
+                q = q.getLiga();
+                cont++;
+            }
+        } else {
+            while (cont != primeraParte) {
+                q = q.getLiga();
+                cont++;
+            }
+            while (q != null) {
+                System.out.println(q.getValor());
+                q = q.getLiga();
+            }
+        }
+    }
+    public void eliminarDuplicados() {
+        Nodo<T> q = p;
+        Nodo<T> r;
+        Nodo<T> s = q;
+        boolean ban;
+        while (q != null && s.getLiga() != null) {
+            ban = false;
+            r = q;
+            s = q.getLiga();
+            while (s.getValor() != q.getValor() && !ban) {
+                if (s.getLiga() != null) {
+                    r = s;
+                    s = s.getLiga();
+                } else {
+                    ban = true;
+                }
+            }
+            if (!ban) {
+                if (s.getLiga() != null) {
+                    s = s.getLiga();
+                    r.setLiga(s);
+                } else {
+                    r.setLiga(null);
+                }
+            }
+            q = q.getLiga();
+        }
     }
 }
